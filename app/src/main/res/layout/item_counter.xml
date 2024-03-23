@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+>
+
+    <TextView
+            android:id="@+id/item_counter_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            tools:text="Counter name"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+    />
+    <LinearLayout
+            android:id="@+id/item_counter_tint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:orientation="horizontal"
+    >
+        <Button
+                android:id="@+id/item_counter_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:background="?selectableItemBackgroundBorderless"
+        />
+        <TextView
+                android:id="@+id/item_counter_value"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginVertical="1dp"
+                tools:text="1234"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:background="?android:colorBackground"
+        />
+        <Button
+                android:id="@+id/item_counter_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:background="?selectableItemBackgroundBorderless"
+                />
+    </LinearLayout>
+
+</LinearLayout>
