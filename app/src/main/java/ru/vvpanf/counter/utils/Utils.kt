@@ -8,3 +8,5 @@ fun getCounterList(): List<Counter> = listOf(
     Counter(2, "Counter 2", 5, Color.MAGENTA),
     Counter(3, "Counter 3", 0, Color.RED)
 )
+
+val EXTRA_ID = "EXTRA_ID"

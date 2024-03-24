@@ -1,35 +1,61 @@
 package ru.vvpanf.counter.viewmodel
 
-import android.graphics.Color
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.vvpanf.counter.dao.CounterDao
 import ru.vvpanf.counter.model.Counter
 
-class CounterViewModel : ViewModel() {
-    private val counter: MutableLiveData<Counter> = MutableLiveData(Counter(1, "Qwe", 12, Color.BLUE))
-    val counterLive: LiveData<Counter> = counter
+class CounterViewModel(private val counterDao: CounterDao) : ViewModel() {
+    lateinit var counterLive: LiveData<Counter>
 
     private var oldValue: Int = 0
 
-    fun inc() {
-        counter.value!!.value += 1
+    fun init(id: Long) {
+        counterLive = counterDao.getById(id)
+        }
+
+    fun inc() = viewModelScope.launch {
+        counterLive.value?.apply {
+            value += 1
+            counterDao.update(this)
+        }
     }
 
-    fun dec() {
-        counter.value!!.value -= 1
+    fun dec() = viewModelScope.launch {
+        counterLive.value?.apply {
+            value -= 1
+            counterDao.update(this)
+        }
     }
 
-    fun changeCount(newValue: Int) {
-        oldValue = counter.value!!.value
-        counter.value!!.value = newValue
+    fun changeCount(newValue: Int) = viewModelScope.launch {
+        counterLive.value?.apply {
+            oldValue = value
+            value = newValue
+            counterDao.update(this)
+        }
     }
 
-    fun restoreCount() {
-        counter.value!!.value = oldValue
+    fun restoreCount() = viewModelScope.launch {
+        counterLive.value?.apply {
+            value = oldValue
+            oldValue = 0
+            counterDao.update(this)
+        }
     }
 
-    fun changeName(name: String) {
-        counter.value!!.name = name
+    fun changeName(newName: String) = viewModelScope.launch {
+        counterLive.value?.apply {
+            name = newName
+            counterDao.update(this)
+        }
+    }
+
+    fun delete() = viewModelScope.launch {
+        counterLive.value?.apply {
+            counterDao.delete(this)
+        }
     }
 }
